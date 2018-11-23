@@ -6,17 +6,18 @@ class Book extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.retrieveBook = this.retrieveBook.bind(this);
     this.state = {
-      click: false
+      click: false,
+      currentBook: {}
     };
   }
 
   retrieveBook(book) {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${book}`)
       .then(response => response.json())
-      .then(book => {
-        console.log(book);
+      .then(thisBook => {
         this.setState({
-          currentBook: book.items[0]
+          currentBook: thisBook.items[0],
+          click: !this.state.click
         });
       })
       .catch(function(error) {
@@ -26,25 +27,24 @@ class Book extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    this.setState({ click: !this.state.click });
+    // this.setState({ click: !this.state.click });
     this.retrieveBook(this.props.bookID);
   }
   render() {
     return (
-      <div>
+      <div className="book__container">
         <img
           onClick={this.handleClick}
-          className="book"
           src={this.props.book.volumeInfo.imageLinks.thumbnail}
         />
-        <div>
-          <h3>
+        <div className="title__author">
+          <h6>
             {this.props.book.volumeInfo.title},
             {this.props.book.volumeInfo.authors}
-          </h3>
+          </h6>
         </div>
         {this.state.click && this.state.currentBook ? (
-          <div>
+          <div className="additional__info">
             <p>
               {this.state.currentBook.volumeInfo.categories},
               {this.state.currentBook.volumeInfo.pageCount}
@@ -61,6 +61,16 @@ class Book extends React.Component {
             </p>
           </div>
         ) : null}
+        <div>
+          <button
+            className="favourites__button"
+            onClick={() =>
+              this.props.handleFavourite(this.props.book.volumeInfo.title)
+            }
+          >
+            &#10084;
+          </button>
+        </div>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import Book from "./Book";
+import Favourites from "./Favourites";
 
 class Books extends React.Component {
   constructor(props) {
@@ -9,15 +10,34 @@ class Books extends React.Component {
   //map over books results array and pull out details for each book.
   render() {
     return (
-      <div className="books" id="books">
-        <ul>
-          {this.props.books.map(book => {
-            return <Book book={book} bookID={book.id} key={book.id} />;
-          })}
-        </ul>
+      <div>
+        <div className="book__info" id="book__info">
+          <ul>
+            {this.props.books.map(book => {
+              return (
+                <Book
+                  book={book}
+                  bookID={book.id}
+                  key={book.id}
+                  handleFavourite={this.props.handleFavourite}
+                />
+              );
+            })}
+          </ul>
+        </div>
+        <div className="favourites">
+          <ul>
+            {this.props.favourites.map(book => {
+              return (
+                <li>
+                  <h5>{book}</h5>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     );
   }
 }
-
 export default Books;

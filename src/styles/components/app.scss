@@ -1,3 +1,56 @@
 body {
-  background-color: Cornsilk;
+  background-size: contain;
+}
+
+.app {
+  h2 {
+    font-family: "Lobster", cursive;
+    background: yellow;
+  }
+}
+
+.book__container {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  align-items: stretch;
+  img {
+    width: 200px;
+  }
+}
+
+.title__author {
+  background-color: transparent;
+  background-color: white;
+  letter-spacing: 2px;
+  width: 100%;
+  font-size: small;
+  display: inline;
+}
+
+.favourites {
+  position: top;
+  font-weight: 400;
+  background-color: white;
+  color: black;
+  font-size: medium;
+  li {
+    list-style: none;
+  }
+}
+
+.favourites__button {
+  color: red;
+  flex: inline;
+}
+
+.additional__info {
+  font-size: small;
+  background-color: white;
+  flex-direction: flex-wrap;
+}
+
+.search {
+  color: black;
+  display: inline;
 }

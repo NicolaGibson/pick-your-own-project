@@ -3,11 +3,7 @@ import Search from "./Search";
 import "../styles/components/app.scss";
 import Books from "./Books";
 import Book from "./Book";
-// import Book from "./Book";
-// import Favourites from "./Favourites";
-
-//NY Times b666f90ba19a42df9358abd41cf7ac35
-//NY Times "https://api.nytimes.com/svc/books/v3/lists/best-sellers/?api-key=b666f90ba19a42df9358abd41cf7ac35&title=remain"
+import Favourites from "./Favourites";
 
 class App extends React.Component {
   constructor() {
@@ -15,6 +11,8 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.generalBookSearch = this.generalBookSearch.bind(this);
+    this.handleFavourite = this.handleFavourite.bind(this);
+    //this.removeFavouriteByIndex = this.removeFavouriteByIndex.bind(this);
 
     this.state = {
       bookSearch: "",
@@ -25,6 +23,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {}
+
+  handleFavourite(bookTitle) {
+    console.log(bookTitle);
+    const favouriteCopy = this.state.favouriteBook.splice(0);
+    favouriteCopy.push(bookTitle);
+    this.setState({
+      favouriteBook: favouriteCopy
+    });
+  }
 
   //sets state of book search to the value of the search.
   handleChange(event) {
@@ -37,6 +44,11 @@ class App extends React.Component {
     this.generalBookSearch(this.state.bookSearch);
   }
 
+  // deleteFavouriteHandler = favouriteIndex => {
+  //   const deleteFavourite = [...this.state.favouriteBook];
+  //   deleteFavourite.splice(favouriteIndex, 1);
+  //   this.setState({ deleteFavourite: favouriteBook });
+  // };
   generalBookSearch(bookSearch) {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookSearch}`)
       .then(function(response) {
@@ -55,7 +67,7 @@ class App extends React.Component {
       <div className="app">
         <header>
           <h2 className="title">
-            <b>Book Search</b>
+            <b>Virtual Library</b>
           </h2>
         </header>
         <Search
@@ -63,7 +75,12 @@ class App extends React.Component {
           inputText={this.state.bookSearch}
           handleChange={this.handleChange}
         />
-        <Books books={this.state.books} />
+        <Books
+          books={this.state.books}
+          favourites={this.state.favouriteBook}
+          handleFavourite={this.handleFavourite}
+          deleteFavouriteHandler={this.deleteFavouriteHandler}
+        />
       </div>
     );
   }
