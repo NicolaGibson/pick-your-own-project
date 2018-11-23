@@ -12,7 +12,6 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.generalBookSearch = this.generalBookSearch.bind(this);
     this.handleFavourite = this.handleFavourite.bind(this);
-    //this.removeFavouriteByIndex = this.removeFavouriteByIndex.bind(this);
 
     this.state = {
       bookSearch: "",
@@ -44,11 +43,6 @@ class App extends React.Component {
     this.generalBookSearch(this.state.bookSearch);
   }
 
-  // deleteFavouriteHandler = favouriteIndex => {
-  //   const deleteFavourite = [...this.state.favouriteBook];
-  //   deleteFavourite.splice(favouriteIndex, 1);
-  //   this.setState({ deleteFavourite: favouriteBook });
-  // };
   generalBookSearch(bookSearch) {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookSearch}`)
       .then(function(response) {
