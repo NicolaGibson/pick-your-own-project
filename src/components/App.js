@@ -3,7 +3,6 @@ import Search from "./Search";
 import "../styles/components/app.scss";
 import Books from "./Books";
 import Book from "./Book";
-import Favourites from "./Favourites";
 
 class App extends React.Component {
   constructor() {
@@ -32,7 +31,6 @@ class App extends React.Component {
     });
   }
 
-  //sets state of book search to the value of the search.
   handleChange(event) {
     event.preventDefault();
     this.setState({ bookSearch: event.target.value });
